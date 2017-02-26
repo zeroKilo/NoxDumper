@@ -30,20 +30,22 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.actionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startNOXADBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshProcessListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getMemoryMapOfProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveDumpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.dumpSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startNOXADBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hb1 = new Be.Windows.Forms.HexBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.log = new System.Windows.Forms.RichTextBox();
-            this.saveDumpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.hb1 = new Be.Windows.Forms.HexBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -77,6 +79,13 @@
             this.actionToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.actionToolStripMenuItem.Text = "Action";
             // 
+            // startNOXADBToolStripMenuItem
+            // 
+            this.startNOXADBToolStripMenuItem.Name = "startNOXADBToolStripMenuItem";
+            this.startNOXADBToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.startNOXADBToolStripMenuItem.Text = "Start NOX ADB";
+            this.startNOXADBToolStripMenuItem.Click += new System.EventHandler(this.startNOXADBToolStripMenuItem_Click);
+            // 
             // refreshProcessListToolStripMenuItem
             // 
             this.refreshProcessListToolStripMenuItem.Name = "refreshProcessListToolStripMenuItem";
@@ -90,6 +99,20 @@
             this.getMemoryMapOfProcessToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.getMemoryMapOfProcessToolStripMenuItem.Text = "Get Memory Map of Process";
             this.getMemoryMapOfProcessToolStripMenuItem.Click += new System.EventHandler(this.getMemoryMapOfProcessToolStripMenuItem_Click);
+            // 
+            // dumpSectionToolStripMenuItem
+            // 
+            this.dumpSectionToolStripMenuItem.Name = "dumpSectionToolStripMenuItem";
+            this.dumpSectionToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.dumpSectionToolStripMenuItem.Text = "Dump Section";
+            this.dumpSectionToolStripMenuItem.Click += new System.EventHandler(this.dumpSectionToolStripMenuItem_Click);
+            // 
+            // saveDumpToolStripMenuItem
+            // 
+            this.saveDumpToolStripMenuItem.Name = "saveDumpToolStripMenuItem";
+            this.saveDumpToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.saveDumpToolStripMenuItem.Text = "Save Dump";
+            this.saveDumpToolStripMenuItem.Click += new System.EventHandler(this.saveDumpToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -106,6 +129,7 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.listBox1);
+            this.tabPage1.Controls.Add(this.textBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -123,7 +147,7 @@
             this.listBox1.ItemHeight = 14;
             this.listBox1.Location = new System.Drawing.Point(3, 3);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(769, 453);
+            this.listBox1.Size = new System.Drawing.Size(769, 433);
             this.listBox1.TabIndex = 0;
             // 
             // tabPage2
@@ -132,7 +156,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(390, 270);
+            this.tabPage2.Size = new System.Drawing.Size(775, 459);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Memory map";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -147,12 +171,13 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.listBox2);
+            this.splitContainer1.Panel1.Controls.Add(this.textBox2);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.hb1);
-            this.splitContainer1.Size = new System.Drawing.Size(384, 264);
-            this.splitContainer1.SplitterDistance = 128;
+            this.splitContainer1.Size = new System.Drawing.Size(769, 453);
+            this.splitContainer1.SplitterDistance = 219;
             this.splitContainer1.TabIndex = 0;
             // 
             // listBox2
@@ -164,39 +189,8 @@
             this.listBox2.ItemHeight = 14;
             this.listBox2.Location = new System.Drawing.Point(0, 0);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(384, 128);
+            this.listBox2.Size = new System.Drawing.Size(769, 199);
             this.listBox2.TabIndex = 1;
-            // 
-            // dumpSectionToolStripMenuItem
-            // 
-            this.dumpSectionToolStripMenuItem.Name = "dumpSectionToolStripMenuItem";
-            this.dumpSectionToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.dumpSectionToolStripMenuItem.Text = "Dump Section";
-            this.dumpSectionToolStripMenuItem.Click += new System.EventHandler(this.dumpSectionToolStripMenuItem_Click);
-            // 
-            // startNOXADBToolStripMenuItem
-            // 
-            this.startNOXADBToolStripMenuItem.Name = "startNOXADBToolStripMenuItem";
-            this.startNOXADBToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.startNOXADBToolStripMenuItem.Text = "Start NOX ADB";
-            this.startNOXADBToolStripMenuItem.Click += new System.EventHandler(this.startNOXADBToolStripMenuItem_Click);
-            // 
-            // hb1
-            // 
-            this.hb1.BoldFont = null;
-            this.hb1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hb1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hb1.LineInfoForeColor = System.Drawing.Color.Empty;
-            this.hb1.LineInfoVisible = true;
-            this.hb1.Location = new System.Drawing.Point(0, 0);
-            this.hb1.Name = "hb1";
-            this.hb1.ReadOnly = true;
-            this.hb1.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.hb1.Size = new System.Drawing.Size(384, 132);
-            this.hb1.StringViewVisible = true;
-            this.hb1.TabIndex = 0;
-            this.hb1.UseFixedBytesPerLine = true;
-            this.hb1.VScrollBarVisible = true;
             // 
             // tabPage3
             // 
@@ -222,12 +216,40 @@
             this.log.Text = "";
             this.log.WordWrap = false;
             // 
-            // saveDumpToolStripMenuItem
+            // textBox1
             // 
-            this.saveDumpToolStripMenuItem.Name = "saveDumpToolStripMenuItem";
-            this.saveDumpToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.saveDumpToolStripMenuItem.Text = "Save Dump";
-            this.saveDumpToolStripMenuItem.Click += new System.EventHandler(this.saveDumpToolStripMenuItem_Click);
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.textBox1.Location = new System.Drawing.Point(3, 436);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(769, 20);
+            this.textBox1.TabIndex = 1;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.textBox2.Location = new System.Drawing.Point(0, 199);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(769, 20);
+            this.textBox2.TabIndex = 2;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            // 
+            // hb1
+            // 
+            this.hb1.BoldFont = null;
+            this.hb1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hb1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hb1.LineInfoForeColor = System.Drawing.Color.Empty;
+            this.hb1.LineInfoVisible = true;
+            this.hb1.Location = new System.Drawing.Point(0, 0);
+            this.hb1.Name = "hb1";
+            this.hb1.ReadOnly = true;
+            this.hb1.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
+            this.hb1.Size = new System.Drawing.Size(769, 230);
+            this.hb1.StringViewVisible = true;
+            this.hb1.TabIndex = 0;
+            this.hb1.UseFixedBytesPerLine = true;
+            this.hb1.VScrollBarVisible = true;
             // 
             // Form1
             // 
@@ -243,8 +265,10 @@
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -272,6 +296,8 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.RichTextBox log;
         private System.Windows.Forms.ToolStripMenuItem saveDumpToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 

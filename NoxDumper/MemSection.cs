@@ -26,7 +26,7 @@ namespace NoxDumper
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("{0}-{1} {2} {3}", start.ToString("X8"), end.ToString("X8"), flags, desc);
+            sb.AppendFormat("{0}-{1} {2} {3} {4}", start.ToString("X8"), end.ToString("X8"), (end - start).ToString("X8"),  flags, desc);
             return sb.ToString();
         }
     }

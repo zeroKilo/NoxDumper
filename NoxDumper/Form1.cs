@@ -18,7 +18,9 @@ namespace NoxDumper
     {
         public List<ProcInfo> procs = new List<ProcInfo>();
         public List<MemSection> sections = new List<MemSection>();
-        public string path = Path.GetDirectoryName(Application.ExecutablePath).Replace("\\\\","\\") + "\\";
+        public string path = Path.GetDirectoryName(Application.ExecutablePath)+ "\\";
+        public string proc_filter = "";
+        public string sect_filter = "";
 
         public Form1()
         {
@@ -29,13 +31,14 @@ namespace NoxDumper
         {
             listBox1.Items.Clear();
             foreach (ProcInfo info in procs)
-                listBox1.Items.Add(info.ToString());
+                    listBox1.Items.Add(info.ToString());
         }
 
         public void RefreshSection()
         {
             listBox2.Items.Clear();
             foreach (MemSection section in sections)
+                if (section.ToString().Contains(sect_filter))
                 listBox2.Items.Add(section.ToString());
         }
 
@@ -87,6 +90,33 @@ namespace NoxDumper
 
         private void refreshProcessListToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            GetProcessList();
+        }
+
+        private void getMemoryMapOfProcessToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GetMemoryMap();
+        }
+
+        public void GetMemoryMap()
+        {
+            int n = listBox1.SelectedIndex;
+            if (n == -1)
+                return;
+            ProcInfo info = procs[n];
+            string result = RunNoxShell("cat /proc/" + info.pid + "/maps");
+            sections = new List<MemSection>();
+            StringReader sr = new StringReader(result);
+            string line;
+            sections = new List<MemSection>();
+            while ((line = sr.ReadLine()) != null)
+                if (line.Trim() != "" && line.Contains(sect_filter))
+                    sections.Add(new MemSection(line));
+            RefreshSection();
+        }
+
+        public void GetProcessList()
+        {
             procs = new List<ProcInfo>();
             string[] commands = new string[] { "ps -t", " ps" };
             foreach (string command in commands)
@@ -104,7 +134,7 @@ namespace NoxDumper
                 StringReader sr = new StringReader(result);
                 string line;
                 while ((line = sr.ReadLine()) != null)
-                    if (!line.StartsWith("USER") && line.Trim() != "")
+                    if (!line.StartsWith("USER") && line.Trim() != "" && line.Contains(proc_filter))
                         procs.Add(new ProcInfo(line));
             }
             while (true)
@@ -129,23 +159,6 @@ namespace NoxDumper
                     break;
             }
             RefreshProcesses();
-        }
-
-        private void getMemoryMapOfProcessToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int n = listBox1.SelectedIndex;
-            if (n == -1)
-                return;
-            ProcInfo info = procs[n];
-            string result = RunNoxShell("cat /proc/" + info.pid + "/maps");
-            sections = new List<MemSection>();
-            StringReader sr = new StringReader(result);
-            string line;
-            sections = new List<MemSection>();
-            while ((line = sr.ReadLine()) != null)
-                if (line.Trim() != "")
-                    sections.Add(new MemSection(line));
-            RefreshSection();
         }
 
         private void dumpSectionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -194,6 +207,18 @@ namespace NoxDumper
                 File.WriteAllBytes(d.FileName, m.ToArray());
                 MessageBox.Show("Done.");
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            proc_filter = textBox1.Text;
+            GetProcessList();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            sect_filter = textBox2.Text;
+            GetMemoryMap();
         }
     }
 }
