@@ -110,7 +110,8 @@ namespace NoxDumper
             while (true)
             {
                 bool found = false;
-                for(int i=0;i<procs.Count -1;i++)
+                for (int i = 0; i < procs.Count - 1; i++)
+                {
                     if (procs[i + 1].pid < procs[i].pid)
                     {
                         found = true;
@@ -118,6 +119,12 @@ namespace NoxDumper
                         procs[i] = procs[i + 1];
                         procs[i + 1] = tmp;
                     }
+                    if (procs[i + 1].pid == procs[i].pid)
+                    {
+                        procs.RemoveAt(i);
+                        found = true;
+                    }
+                }
                 if (!found)
                     break;
             }
