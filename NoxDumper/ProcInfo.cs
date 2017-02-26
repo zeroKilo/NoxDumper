@@ -35,7 +35,7 @@ namespace NoxDumper
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("{0} : {1} {2}", pid, pc.ToString("X8"), name);
+            sb.AppendFormat("{0} - {1} : {2} {3}", pid, ppid, pc.ToString("X8"), name);
             sb.AppendLine(user);
             return sb.ToString();
         }
