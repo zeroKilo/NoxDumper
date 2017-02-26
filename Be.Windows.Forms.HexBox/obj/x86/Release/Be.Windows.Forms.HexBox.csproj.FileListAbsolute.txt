@@ -1,0 +1,6 @@
+D:\CODE\GitHub\AreaServerExplorerWV\Be.Windows.Forms.HexBox\bin\x86\Release\Be.Windows.Forms.HexBox.dll
+D:\CODE\GitHub\AreaServerExplorerWV\Be.Windows.Forms.HexBox\obj\x86\Release\Be.Windows.Forms.HexBox.csprojResolveAssemblyReference.cache
+D:\CODE\GitHub\AreaServerExplorerWV\Be.Windows.Forms.HexBox\obj\x86\Release\Be.Windows.Forms.HexBox.resources
+D:\CODE\GitHub\AreaServerExplorerWV\Be.Windows.Forms.HexBox\obj\x86\Release\Be.Windows.Forms.Properties.Resources.resources
+D:\CODE\GitHub\AreaServerExplorerWV\Be.Windows.Forms.HexBox\obj\x86\Release\Be.Windows.Forms.HexBox.csproj.GenerateResource.Cache
+D:\CODE\GitHub\AreaServerExplorerWV\Be.Windows.Forms.HexBox\obj\x86\Release\Be.Windows.Forms.HexBox.dll
