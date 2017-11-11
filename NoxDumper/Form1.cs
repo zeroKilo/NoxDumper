@@ -169,12 +169,7 @@ namespace NoxDumper
                 return;
             if (File.Exists("dump.bin"))
                 File.Delete("dump.bin");
-            ProcInfo info = procs[n];
-            MemSection section = sections[m];
-            uint size = section.end - section.start;
-            RunNoxShell("mkdir /data/data/com.wv.noxdumper/");
-            RunNoxShell("dd if=/proc/" + info.pid + "/mem of=/data/data/com.wv.noxdumper/dump bs=1 count=" + size + " skip=" + section.start);
-            RunShell("nox_adb.exe", "pull /data/data/com.wv.noxdumper/dump \"" + path + "dump.bin\"");
+            DumpSection(n, m);
             if (File.Exists("dump.bin"))
             {
                 hb1.ByteProvider = new DynamicByteProvider(File.ReadAllBytes("dump.bin"));
@@ -182,6 +177,16 @@ namespace NoxDumper
             }
             else
                 hb1.ByteProvider = new DynamicByteProvider(new byte[0]);
+        }
+
+        private void DumpSection(int p, int s)
+        {
+            ProcInfo info = procs[p];
+            MemSection section = sections[s];
+            uint size = section.end - section.start;
+            RunNoxShell("mkdir /data/data/com.wv.noxdumper/");
+            RunNoxShell("dd if=/proc/" + info.pid + "/mem of=/data/data/com.wv.noxdumper/dump bs=1 count=" + size + " skip=" + section.start);
+            RunShell("nox_adb.exe", "pull /data/data/com.wv.noxdumper/dump \"" + path + "dump.bin\"");
         }
 
         private void startNOXADBToolStripMenuItem_Click(object sender, EventArgs e)
@@ -219,6 +224,53 @@ namespace NoxDumper
         {
             sect_filter = textBox2.Text;
             GetMemoryMap();
+        }
+
+        public string CleanName(string name)
+        {
+            return name.Replace("\\", "_")
+                       .Replace("/", "_")
+                       .Replace("<", "_")
+                       .Replace(">", "_")
+                       .Replace("?", "_")
+                       .Replace("@", "_")
+                       .Replace(":", "_")
+                       .Replace("*", "_")
+                       .Replace("\"", "_")
+                       .Replace(":", "_")
+                       .Replace("|", "_");
+        }
+
+        private void dumpAllSectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int n = listBox1.SelectedIndex;
+            if (n == -1) return;
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                pb1.Maximum = sections.Count;
+                actionToolStripMenuItem.Enabled = false;
+                for (int i = 0; i < sections.Count; i++)
+                {
+                    string name = "sec" + i.ToString("D4") + "_" + CleanName(sections[i].desc);
+                    try
+                    {
+                        if (File.Exists("dump.bin"))
+                            File.Delete("dump.bin");
+                        DumpSection(n, i);
+                        if (File.Exists("dump.bin"))
+                            File.Move("dump.bin", fbd.SelectedPath + "\\" + name);
+                        pb1.Value = i;
+                        Application.DoEvents();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error for section #" + i + " '" + name + "'!\n" + ex.Message);
+                    }
+                }
+                actionToolStripMenuItem.Enabled = true;
+                pb1.Value = 0;
+            }
         }
     }
 }

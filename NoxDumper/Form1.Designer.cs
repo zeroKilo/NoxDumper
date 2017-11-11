@@ -38,14 +38,16 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.log = new System.Windows.Forms.RichTextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.dumpAllSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hb1 = new Be.Windows.Forms.HexBox();
+            this.pb1 = new System.Windows.Forms.ProgressBar();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -74,6 +76,7 @@
             this.refreshProcessListToolStripMenuItem,
             this.getMemoryMapOfProcessToolStripMenuItem,
             this.dumpSectionToolStripMenuItem,
+            this.dumpAllSectionToolStripMenuItem,
             this.saveDumpToolStripMenuItem});
             this.actionToolStripMenuItem.Name = "actionToolStripMenuItem";
             this.actionToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
@@ -150,6 +153,15 @@
             this.listBox1.Size = new System.Drawing.Size(769, 433);
             this.listBox1.TabIndex = 0;
             // 
+            // textBox1
+            // 
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.textBox1.Location = new System.Drawing.Point(3, 436);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(769, 20);
+            this.textBox1.TabIndex = 1;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.splitContainer1);
@@ -171,6 +183,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.listBox2);
+            this.splitContainer1.Panel1.Controls.Add(this.pb1);
             this.splitContainer1.Panel1.Controls.Add(this.textBox2);
             // 
             // splitContainer1.Panel2
@@ -189,8 +202,17 @@
             this.listBox2.ItemHeight = 14;
             this.listBox2.Location = new System.Drawing.Point(0, 0);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(769, 199);
+            this.listBox2.Size = new System.Drawing.Size(769, 189);
             this.listBox2.TabIndex = 1;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.textBox2.Location = new System.Drawing.Point(0, 199);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(769, 20);
+            this.textBox2.TabIndex = 2;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // tabPage3
             // 
@@ -216,23 +238,12 @@
             this.log.Text = "";
             this.log.WordWrap = false;
             // 
-            // textBox1
+            // dumpAllSectionToolStripMenuItem
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.textBox1.Location = new System.Drawing.Point(3, 436);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(769, 20);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.textBox2.Location = new System.Drawing.Point(0, 199);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(769, 20);
-            this.textBox2.TabIndex = 2;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.dumpAllSectionToolStripMenuItem.Name = "dumpAllSectionToolStripMenuItem";
+            this.dumpAllSectionToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.dumpAllSectionToolStripMenuItem.Text = "Dump All Section";
+            this.dumpAllSectionToolStripMenuItem.Click += new System.EventHandler(this.dumpAllSectionToolStripMenuItem_Click);
             // 
             // hb1
             // 
@@ -250,6 +261,14 @@
             this.hb1.TabIndex = 0;
             this.hb1.UseFixedBytesPerLine = true;
             this.hb1.VScrollBarVisible = true;
+            // 
+            // pb1
+            // 
+            this.pb1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pb1.Location = new System.Drawing.Point(0, 189);
+            this.pb1.Name = "pb1";
+            this.pb1.Size = new System.Drawing.Size(769, 10);
+            this.pb1.TabIndex = 3;
             // 
             // Form1
             // 
@@ -298,6 +317,8 @@
         private System.Windows.Forms.ToolStripMenuItem saveDumpToolStripMenuItem;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ToolStripMenuItem dumpAllSectionToolStripMenuItem;
+        private System.Windows.Forms.ProgressBar pb1;
     }
 }
 
