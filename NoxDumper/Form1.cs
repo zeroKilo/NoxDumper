@@ -135,7 +135,16 @@ namespace NoxDumper
                 string line;
                 while ((line = sr.ReadLine()) != null)
                     if (!line.StartsWith("USER") && line.Trim() != "" && line.Contains(proc_filter))
-                        procs.Add(new ProcInfo(line));
+                    {
+                        try
+                        {
+                            procs.Add(new ProcInfo(line));
+                        }
+                        catch (Exception ex)
+                        {
+                            File.WriteAllText("error.log", line + "\n\n" + ex.Message);
+                        }
+                    }
             }
             while (true)
             {
