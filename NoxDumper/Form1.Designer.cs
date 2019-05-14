@@ -34,6 +34,7 @@
             this.refreshProcessListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getMemoryMapOfProcessToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dumpSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpAllSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveDumpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -42,12 +43,12 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.pb1 = new System.Windows.Forms.ProgressBar();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.hb1 = new Be.Windows.Forms.HexBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.log = new System.Windows.Forms.RichTextBox();
-            this.dumpAllSectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hb1 = new Be.Windows.Forms.HexBox();
-            this.pb1 = new System.Windows.Forms.ProgressBar();
+            this.disconnectNOXADBFromAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -73,6 +74,7 @@
             // 
             this.actionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startNOXADBToolStripMenuItem,
+            this.disconnectNOXADBFromAllToolStripMenuItem,
             this.refreshProcessListToolStripMenuItem,
             this.getMemoryMapOfProcessToolStripMenuItem,
             this.dumpSectionToolStripMenuItem,
@@ -85,35 +87,42 @@
             // startNOXADBToolStripMenuItem
             // 
             this.startNOXADBToolStripMenuItem.Name = "startNOXADBToolStripMenuItem";
-            this.startNOXADBToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.startNOXADBToolStripMenuItem.Text = "Start NOX ADB";
+            this.startNOXADBToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.startNOXADBToolStripMenuItem.Text = "Connect NOX ADB to device...";
             this.startNOXADBToolStripMenuItem.Click += new System.EventHandler(this.startNOXADBToolStripMenuItem_Click);
             // 
             // refreshProcessListToolStripMenuItem
             // 
             this.refreshProcessListToolStripMenuItem.Name = "refreshProcessListToolStripMenuItem";
-            this.refreshProcessListToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.refreshProcessListToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.refreshProcessListToolStripMenuItem.Text = "Refresh Process List";
             this.refreshProcessListToolStripMenuItem.Click += new System.EventHandler(this.refreshProcessListToolStripMenuItem_Click);
             // 
             // getMemoryMapOfProcessToolStripMenuItem
             // 
             this.getMemoryMapOfProcessToolStripMenuItem.Name = "getMemoryMapOfProcessToolStripMenuItem";
-            this.getMemoryMapOfProcessToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.getMemoryMapOfProcessToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.getMemoryMapOfProcessToolStripMenuItem.Text = "Get Memory Map of Process";
             this.getMemoryMapOfProcessToolStripMenuItem.Click += new System.EventHandler(this.getMemoryMapOfProcessToolStripMenuItem_Click);
             // 
             // dumpSectionToolStripMenuItem
             // 
             this.dumpSectionToolStripMenuItem.Name = "dumpSectionToolStripMenuItem";
-            this.dumpSectionToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.dumpSectionToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.dumpSectionToolStripMenuItem.Text = "Dump Section";
             this.dumpSectionToolStripMenuItem.Click += new System.EventHandler(this.dumpSectionToolStripMenuItem_Click);
+            // 
+            // dumpAllSectionToolStripMenuItem
+            // 
+            this.dumpAllSectionToolStripMenuItem.Name = "dumpAllSectionToolStripMenuItem";
+            this.dumpAllSectionToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.dumpAllSectionToolStripMenuItem.Text = "Dump All Section";
+            this.dumpAllSectionToolStripMenuItem.Click += new System.EventHandler(this.dumpAllSectionToolStripMenuItem_Click);
             // 
             // saveDumpToolStripMenuItem
             // 
             this.saveDumpToolStripMenuItem.Name = "saveDumpToolStripMenuItem";
-            this.saveDumpToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.saveDumpToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.saveDumpToolStripMenuItem.Text = "Save Dump";
             this.saveDumpToolStripMenuItem.Click += new System.EventHandler(this.saveDumpToolStripMenuItem_Click);
             // 
@@ -205,6 +214,14 @@
             this.listBox2.Size = new System.Drawing.Size(769, 189);
             this.listBox2.TabIndex = 1;
             // 
+            // pb1
+            // 
+            this.pb1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pb1.Location = new System.Drawing.Point(0, 189);
+            this.pb1.Name = "pb1";
+            this.pb1.Size = new System.Drawing.Size(769, 10);
+            this.pb1.TabIndex = 3;
+            // 
             // textBox2
             // 
             this.textBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -213,6 +230,23 @@
             this.textBox2.Size = new System.Drawing.Size(769, 20);
             this.textBox2.TabIndex = 2;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            // 
+            // hb1
+            // 
+            this.hb1.BoldFont = null;
+            this.hb1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hb1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hb1.LineInfoForeColor = System.Drawing.Color.Empty;
+            this.hb1.LineInfoVisible = true;
+            this.hb1.Location = new System.Drawing.Point(0, 0);
+            this.hb1.Name = "hb1";
+            this.hb1.ReadOnly = true;
+            this.hb1.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
+            this.hb1.Size = new System.Drawing.Size(769, 230);
+            this.hb1.StringViewVisible = true;
+            this.hb1.TabIndex = 0;
+            this.hb1.UseFixedBytesPerLine = true;
+            this.hb1.VScrollBarVisible = true;
             // 
             // tabPage3
             // 
@@ -238,37 +272,12 @@
             this.log.Text = "";
             this.log.WordWrap = false;
             // 
-            // dumpAllSectionToolStripMenuItem
+            // disconnectNOXADBFromAllToolStripMenuItem
             // 
-            this.dumpAllSectionToolStripMenuItem.Name = "dumpAllSectionToolStripMenuItem";
-            this.dumpAllSectionToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.dumpAllSectionToolStripMenuItem.Text = "Dump All Section";
-            this.dumpAllSectionToolStripMenuItem.Click += new System.EventHandler(this.dumpAllSectionToolStripMenuItem_Click);
-            // 
-            // hb1
-            // 
-            this.hb1.BoldFont = null;
-            this.hb1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hb1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hb1.LineInfoForeColor = System.Drawing.Color.Empty;
-            this.hb1.LineInfoVisible = true;
-            this.hb1.Location = new System.Drawing.Point(0, 0);
-            this.hb1.Name = "hb1";
-            this.hb1.ReadOnly = true;
-            this.hb1.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.hb1.Size = new System.Drawing.Size(769, 230);
-            this.hb1.StringViewVisible = true;
-            this.hb1.TabIndex = 0;
-            this.hb1.UseFixedBytesPerLine = true;
-            this.hb1.VScrollBarVisible = true;
-            // 
-            // pb1
-            // 
-            this.pb1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pb1.Location = new System.Drawing.Point(0, 189);
-            this.pb1.Name = "pb1";
-            this.pb1.Size = new System.Drawing.Size(769, 10);
-            this.pb1.TabIndex = 3;
+            this.disconnectNOXADBFromAllToolStripMenuItem.Name = "disconnectNOXADBFromAllToolStripMenuItem";
+            this.disconnectNOXADBFromAllToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.disconnectNOXADBFromAllToolStripMenuItem.Text = "Disconnect NOX ADB from all";
+            this.disconnectNOXADBFromAllToolStripMenuItem.Click += new System.EventHandler(this.disconnectNOXADBFromAllToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -319,6 +328,7 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.ToolStripMenuItem dumpAllSectionToolStripMenuItem;
         private System.Windows.Forms.ProgressBar pb1;
+        private System.Windows.Forms.ToolStripMenuItem disconnectNOXADBFromAllToolStripMenuItem;
     }
 }
 

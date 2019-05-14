@@ -47,7 +47,7 @@ namespace NoxDumper
             return RunShell("nox_adb.exe", "shell " + command);
         }
 
-        public string RunShell(string command, string args)
+        public string RunShell(string command, string args, bool toLog = true)
         {
             Process process = new Process();
             StringBuilder outputStringBuilder = new StringBuilder();
@@ -80,11 +80,14 @@ namespace NoxDumper
                 process.Close();
             }
             string result = outputStringBuilder.ToString();
-            log.AppendText(">" + command + " " + args + "\r\n");
-            log.AppendText(result.Replace("\r\n\r\n","\r\n"));
-            int maxsize = 10000;
-            if (log.Text.Length > maxsize)
-                log.Text = log.Text.Substring(log.Text.Length - maxsize, maxsize);
+            if (toLog)
+            {
+                log.AppendText(">" + command + " " + args + "\r\n");
+                log.AppendText(result.Replace("\r\n\r\n", "\r\n"));
+                int maxsize = 10000;
+                if (log.Text.Length > maxsize)
+                    log.Text = log.Text.Substring(log.Text.Length - maxsize, maxsize);
+            }
             return result;
         }
 
@@ -200,7 +203,11 @@ namespace NoxDumper
 
         private void startNOXADBToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(RunShell("nox_adb.exe", "connect 127.0.0.1:62001"));
+            DeviceSelector d = new DeviceSelector();
+            d.input = RunShell("netstat", "-aon", false);
+            d.ShowDialog();
+            if(d.output != "")
+                MessageBox.Show(RunShell("nox_adb.exe", "connect " + d.output));
         }
 
         private void saveDumpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -280,6 +287,11 @@ namespace NoxDumper
                 actionToolStripMenuItem.Enabled = true;
                 pb1.Value = 0;
             }
+        }
+
+        private void disconnectNOXADBFromAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(RunShell("nox_adb.exe", "disconnect"));
         }
     }
 }
